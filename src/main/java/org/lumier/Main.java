@@ -4,6 +4,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.lumier.ir.ProgramContext;
 
 import java.io.IOException;
 
@@ -14,6 +15,7 @@ public class Main {
         LumierParser parser = new LumierParser(tokens);
         LumierParser.CompilationUnitContext tree = parser.compilationUnit();
         LumierVisitorImpl visitor = new LumierVisitorImpl();
-        visitor.visit(tree);
+        ProgramContext context = (ProgramContext) visitor.visit(tree);
+        System.out.println(context.getFunctions());
     }
 }

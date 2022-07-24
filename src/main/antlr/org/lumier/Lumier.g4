@@ -10,8 +10,7 @@ function:
 function_signature: IDENTIFIER parameters ('--' return_types)?;
 parameters: type*;
 return_types: type*;
-type: IDENTIFIER | array_type;
-array_type : '[' IDENTIFIER ']';
+type: IDENTIFIER;
 END_KEYWORD : 'end';
 fragment LOWERCASE : [a-z] ;
 fragment UPPERCASE : [A-Z] ;
@@ -20,9 +19,9 @@ FUNCTION_KEYWORD : 'function';
 IDENTIFIER : (LOWERCASE | UPPERCASE | '_' ) (LOWERCASE | UPPERCASE | '_' | DIGIT)+ ;
 STRING : '"' .*? '"';
 block : statement* END_KEYWORD;
-statement: push_value_statement | method_call | operation;
+statement: push_value_statement | function_call | operation;
 push_value_statement: expr;
-method_call: IDENTIFIER;
+function_call: IDENTIFIER;
 operation:
    '+' #add
  | '-' #sub
