@@ -2,6 +2,7 @@ package org.lumier;
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.lumier.ir.IRChecker;
 import org.lumier.ir.Program;
 import org.lumier.ir.RunIR;
 
@@ -15,6 +16,7 @@ public class Main {
         LumierParser.CompilationUnitContext tree = parser.compilationUnit();
         LumierVisitorImpl visitor = new LumierVisitorImpl();
         Program context = (Program) visitor.visit(tree);
+        new IRChecker(context).checkProgram();
         RunIR runIR = new RunIR(context);
         runIR.runProgram();
     }

@@ -1,5 +1,5 @@
 function main
-1 1 add print
+1 1 + print
 "Hello World" print
 end
 function add int int -- int
