@@ -4,19 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1097a3c6-510d-44ba-9d84-aa0766e5ebcb" name="Changes" comment="feature(IR): Add basic data structs for functions, instruction, types, etc...">
-      <change afterPath="$PROJECT_DIR$/.attach_pid7941" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.attach_pid8104" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.attach_pid8166" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.attach_pid8219" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.attach_pid8278" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.attach_pid8447" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.attach_pid8506" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.attach_pid8617" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.attach_pid8997" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/lumier/ir/IRChecker.java" afterDir="false" />
+    <list default="true" id="1097a3c6-510d-44ba-9d84-aa0766e5ebcb" name="Changes" comment="feature: Add if statement/block&#10;The if statement will use the boolean on top of the stack as the condition&#10;if true, execute the 'if' block, otherwise, execute 'else' block&#10;The if and else blocks must have the same return type, which means that, if I left a 'int' value on the stack, I need to also left a 'int' value on the else block.">
+      <change afterPath="$PROJECT_DIR$/.attach_pid46252" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/lumier/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lumier/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/antlr/org/lumier/Lumier.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/antlr/org/lumier/Lumier.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lumier/LumierVisitorImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lumier/LumierVisitorImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lumier/ir/IRChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lumier/ir/IRChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lumier/ir/InstructionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lumier/ir/InstructionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lumier/ir/RunIR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lumier/ir/RunIR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lumier/ir/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lumier/ir/Type.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/lumier/Example.lm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/lumier/Example.lm" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -252,6 +248,18 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="init: First commit.&#10;Setup project with antlr" />
     <MESSAGE value="feature(IR): Add basic data structs for functions, instruction, types, etc..." />
-    <option name="LAST_COMMIT_MESSAGE" value="feature(IR): Add basic data structs for functions, instruction, types, etc..." />
+    <MESSAGE value="feature: Add if statement/block&#10;The if statement will use the boolean on top of the stack as the condition&#10;if true, execute the 'if' block, otherwise, execute 'else' block&#10;The if and else blocks must have the same return type, which means that, if I left a 'int' value on the stack, I need to also left a 'int' value on the else block." />
+    <option name="LAST_COMMIT_MESSAGE" value="feature: Add if statement/block&#10;The if statement will use the boolean on top of the stack as the condition&#10;if true, execute the 'if' block, otherwise, execute 'else' block&#10;The if and else blocks must have the same return type, which means that, if I left a 'int' value on the stack, I need to also left a 'int' value on the else block." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/lumier/ir/IRChecker.java</url>
+          <line>73</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

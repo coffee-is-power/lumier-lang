@@ -1,7 +1,8 @@
-function main
-1 1 + print
-"Hello World" print
-end
-function add int int -- int
-+
+function main in
+    1 1 +
+    1 = if
+        "1 + 1 = 2!" print
+        1
+    end
+    "Hello World" print
 end

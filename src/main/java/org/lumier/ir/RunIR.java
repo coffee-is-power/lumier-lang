@@ -1,7 +1,8 @@
 package org.lumier.ir;
 
+import java.util.List;
 import java.util.Stack;
-
+@SuppressWarnings("ALL")
 public class RunIR {
     final Program program;
     final Stack<Object> stack = new Stack<>();
@@ -13,13 +14,19 @@ public class RunIR {
         runFunction(program.getFunctions().get("main"));
     }
     public void runFunction(Function function) {
-        for (Instruction instruction : function.getInstructions()) {
+        runInstructions(function.getInstructions());
+    }
+    public void runInstructions(List<Instruction> instructionList) {
+        for (Instruction instruction : instructionList) {
             switch (instruction.getType()) {
                 case Print:
                     System.out.println(stack.pop());
                     break;
                 case Push:
                     stack.push(instruction.args[0]);
+                    break;
+                case Equals:
+                    stack.push(stack.pop().equals(stack.pop()));
                     break;
                 case Add:
                     stack.push((Integer) stack.pop() + (Integer) stack.pop());
@@ -41,6 +48,13 @@ public class RunIR {
                     break;
                 case CallFunction:
                     runFunction(program.functions.get((String) instruction.args[0]));
+                    break;
+                case If:
+                    if ((Boolean) stack.pop()) {
+                        runInstructions((List<Instruction>) instruction.args[0]);
+                    } else if (instruction.args[1] != null) {
+                        runInstructions((List<Instruction>) instruction.args[1]);
+                    }
                     break;
             }
         }

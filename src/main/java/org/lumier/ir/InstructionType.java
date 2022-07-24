@@ -8,5 +8,5 @@ public enum InstructionType {
     Div,
     Mod,
     Mul,
-    Pow, CallFunction
+    Pow, Equals, CallFunction, If
 }

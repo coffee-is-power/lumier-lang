@@ -31,13 +31,18 @@ public class LumierVisitorImpl extends LumierBaseVisitor<Object> {
         }
 
         List<Type> returnTypes = new ArrayList<>();
-        if(ctx.function_signature().return_types() != null)
-        for (LumierParser.TypeContext typeContext : ctx.function_signature().return_types().type()) {
-            returnTypes.add(Type.fromKeyword(typeContext.getText()));
-        }
+        if (ctx.function_signature().return_types() != null)
+            for (LumierParser.TypeContext typeContext : ctx.function_signature().return_types().type()) {
+                returnTypes.add(Type.fromKeyword(typeContext.getText()));
+            }
         Function function = new Function(name, instructions, parameters, returnTypes);
         programContext.getFunctions().put(name, function);
         return null;
+    }
+
+    @Override
+    public Instruction visitIf_block(LumierParser.If_blockContext ctx) {
+        return new Instruction(InstructionType.If, visitBlock(ctx.block()), ctx.else_block() != null ? visitBlock(ctx.else_block().block()) : null);
     }
 
     @Override
@@ -59,6 +64,9 @@ public class LumierVisitorImpl extends LumierBaseVisitor<Object> {
             instructions.add(visitFunction_call(ctx.function_call()));
         } else if (ctx.operation() != null) {
             switch (ctx.operation().getText()) {
+                case "=":
+                    instructions.add(new Instruction(InstructionType.Equals));
+                    break;
                 case "+":
                     instructions.add(new Instruction(InstructionType.Add));
                     break;
@@ -78,6 +86,8 @@ public class LumierVisitorImpl extends LumierBaseVisitor<Object> {
                     instructions.add(new Instruction(InstructionType.Pow));
                     break;
             }
+        } else if (ctx.if_block() != null) {
+            instructions.add(visitIf_block(ctx.if_block()));
         }
         return instructions;
     }
@@ -95,7 +105,7 @@ public class LumierVisitorImpl extends LumierBaseVisitor<Object> {
     @Override
     public Instruction visitFunction_call(LumierParser.Function_callContext ctx) {
         String name = ctx.IDENTIFIER().getText();
-        if(name.equals("print")) {
+        if (name.equals("print")) {
             return new Instruction(InstructionType.Print);
         }
         return new Instruction(InstructionType.CallFunction, name);
