@@ -8,10 +8,10 @@ import java.util.List;
 
 @SuppressWarnings("ALL")
 public class LumierVisitorImpl extends LumierBaseVisitor<Object> {
-    private ProgramContext programContext = new ProgramContext();
+    private Program programContext = new Program();
 
     @Override
-    public ProgramContext visitCompilationUnit(LumierParser.CompilationUnitContext ctx) {
+    public Program visitCompilationUnit(LumierParser.CompilationUnitContext ctx) {
         for (LumierParser.FunctionContext functionContext : ctx.function()) {
             visitFunction(functionContext);
         }
@@ -95,6 +95,9 @@ public class LumierVisitorImpl extends LumierBaseVisitor<Object> {
     @Override
     public Instruction visitFunction_call(LumierParser.Function_callContext ctx) {
         String name = ctx.IDENTIFIER().getText();
+        if(name.equals("print")) {
+            return new Instruction(InstructionType.Print);
+        }
         return new Instruction(InstructionType.CallFunction, name);
     }
 }

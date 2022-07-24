@@ -2,9 +2,8 @@ package org.lumier;
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTreeVisitor;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.lumier.ir.ProgramContext;
+import org.lumier.ir.Program;
+import org.lumier.ir.RunIR;
 
 import java.io.IOException;
 
@@ -15,7 +14,8 @@ public class Main {
         LumierParser parser = new LumierParser(tokens);
         LumierParser.CompilationUnitContext tree = parser.compilationUnit();
         LumierVisitorImpl visitor = new LumierVisitorImpl();
-        ProgramContext context = (ProgramContext) visitor.visit(tree);
-        System.out.println(context.getFunctions());
+        Program context = (Program) visitor.visit(tree);
+        RunIR runIR = new RunIR(context);
+        runIR.runProgram();
     }
 }

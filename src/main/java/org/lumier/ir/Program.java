@@ -3,7 +3,7 @@ package org.lumier.ir;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProgramContext {
+public class Program {
     final Map<String, Function> functions = new HashMap<>();
 
     public Map<String, Function> getFunctions() {
