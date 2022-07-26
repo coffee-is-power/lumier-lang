@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id "antlr"
+    id "application"
 }
 
 group 'org'
@@ -22,4 +23,7 @@ generateGrammarSource {
 }
 test {
     useJUnitPlatform()
+}
+application {
+    mainClassName = "org.lumier.Main"
 }

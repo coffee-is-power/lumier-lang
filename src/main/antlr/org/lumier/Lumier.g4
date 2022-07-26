@@ -21,7 +21,7 @@ STRING : '"' .*? '"';
 if_block: 'if' block (else_block)?;
 else_block: 'else' block;
 block : statement* END_KEYWORD;
-statement: if_block|push_value_statement | function_call | operation;
+statement: if_block | push_value_statement | function_call | operation;
 push_value_statement: expr;
 function_call: IDENTIFIER;
 operation:
@@ -31,8 +31,12 @@ operation:
  | '/' #div
  | '%' #mod
  | '^' #pow
- | '=' #equals;
-NUMBER: DIGIT+;
+ | '=' #equals
+ | 'dup' #duplicate
+ | 'swap' #swap
+ | 'pop' #pop
+ | 'rot' #rotate;
+NUMBER: '-'? DIGIT+;
 expr: STRING | NUMBER;
 N : ('\n' | '\r\n')+ -> skip;
 WS : (' ' | '\t')+ -> skip;

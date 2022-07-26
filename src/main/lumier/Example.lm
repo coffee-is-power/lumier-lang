@@ -1,8 +1,11 @@
 function main in
-    1 1 +
-    1 = if
-        "1 + 1 = 2!" print
-        1
+    69 print
+    35 34 + print
+    69 96 swap print print
+    70 dup print print
+    2 2 + 4 = if
+        "2 + 2 = 4, Cool" print
+    end else 
+        "2 + 2 = 22?" print
     end
-    "Hello World" print
 end

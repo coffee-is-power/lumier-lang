@@ -23,7 +23,10 @@ public class IRChecker {
     }
 
     public void checkFunction(Function function) {
-        unusedFunctions.remove(function.name);
+        if(unusedFunctions.remove(function.name) == null){
+            return;
+        }
+
         Stack<Type> typeStack = new Stack<>();
         typeStack.addAll(function.getParameters());
         for (Instruction instruction : function.getInstructions()) {
@@ -58,9 +61,55 @@ public class IRChecker {
             case If:
                 checkIf(instruction, typeStack);
                 break;
+            case Dup:
+                checkDup(typeStack);
+                break;
+            case Swap:
+                checkSwap(typeStack);
+                break;
+            case Rot:
+                checkRot(typeStack);
+                break;
+            case Pop:
+                checkPop(typeStack);
+                break;
             default:
                 throw new IllegalArgumentException("Unknown instruction type: " + instruction.getType());
         }
+    }
+    public void checkPop(Stack<Type> typeStack) {
+        if (typeStack.isEmpty()) {
+            throw new RuntimeException("Pop on empty stack");
+        }
+        typeStack.pop();
+    }
+    public void checkRot(Stack<Type> typeStack) {
+        if (typeStack.size() < 3) {
+            throw new RuntimeException("Not enough elements on stack for Rot");
+        }
+
+        Type top = typeStack.pop();
+        Type second = typeStack.pop();
+        Type third = typeStack.pop();
+        typeStack.push(second);
+        typeStack.push(top);
+        typeStack.push(third);
+    }
+    public void checkSwap(Stack<Type> typeStack) {
+        if (typeStack.size() < 2) {
+            throw new RuntimeException("Swap instruction requires at least 2 arguments");
+        }
+        Type top = typeStack.pop();
+        Type second = typeStack.pop();
+        typeStack.push(second);
+        typeStack.push(top);
+    }
+
+    public void checkDup(Stack<Type> typeStack) {
+        if (typeStack.size() < 1) {
+            throw new RuntimeException("Dup instruction requires at least one argument");
+        }
+        typeStack.push(typeStack.peek());
     }
 
     public void checkIf(Instruction instruction, Stack<Type> typeStack) {
@@ -68,10 +117,9 @@ public class IRChecker {
             throw new RuntimeException("Stack is empty");
         }
         // Check if a boolean is on the stack and then pop it
-        if (typeStack.peek() != Type.Boolean) {
+        if (typeStack.pop() != Type.Boolean) {
             throw new IllegalArgumentException("If instruction requires a boolean on the stack");
         }
-        typeStack.pop();
         Stack<Type> ifStack = new Stack<>();
         ifStack.addAll(typeStack);
         Stack<Type> elseStack = new Stack<>();
@@ -83,7 +131,7 @@ public class IRChecker {
             checkInstruction(elseInstruction, elseStack);
         }
         if (!ifStack.equals(elseStack)) {
-            throw new RuntimeException("If branches have different return types");
+            throw new RuntimeException("If branches have different return types, if block: " + ifStack + ", else block: " + elseStack);
         }
     }
 
@@ -92,7 +140,7 @@ public class IRChecker {
         if (function == null) {
             throw new IllegalArgumentException("Unknown function: " + instruction.args[0]);
         }
-        if (function.getParameters().size() != typeStack.size()) {
+        if (function.getParameters().size() > typeStack.size()) {
             throw new IllegalArgumentException("Wrong number of arguments for function: " + instruction.args[0]);
         }
         checkFunction(function);

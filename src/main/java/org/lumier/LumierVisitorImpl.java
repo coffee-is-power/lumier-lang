@@ -85,6 +85,18 @@ public class LumierVisitorImpl extends LumierBaseVisitor<Object> {
                 case "^":
                     instructions.add(new Instruction(InstructionType.Pow));
                     break;
+                case "rot":
+                    instructions.add(new Instruction(InstructionType.Rot));
+                    break;
+                case "swap":
+                    instructions.add(new Instruction(InstructionType.Swap));
+                    break;
+                case "dup":
+                    instructions.add(new Instruction(InstructionType.Dup));
+                    break;
+                case "pop":
+                    instructions.add(new Instruction(InstructionType.Pop));
+                    break;
             }
         } else if (ctx.if_block() != null) {
             instructions.add(visitIf_block(ctx.if_block()));
